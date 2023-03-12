@@ -18,7 +18,7 @@ The deadline for handing in the project can be found in Canvas.
 
 One member of the group should start by entering the following repository on github:
 
-https://github.com/selabhvl/dat110-project3-startcode.git
+https://github.com/lmkr/dat110-project3-dht-startcode
 
 and choose '*Use this template*' (see button in the upper right of the repository web page).
 
