@@ -83,9 +83,9 @@ public class MutualExclusion {
 		clock.increment();
 		message.setClock(clock.getClock());
 		WANTS_TO_ENTER_CS = true;
-		List<Message> ml = removeDuplicatePeersBeforeVoting();
-		multicastMessage(message, ml);
-		Boolean permission = areAllMessagesReturned(ml.size());
+		List<Message> peer = removeDuplicatePeersBeforeVoting();
+		multicastMessage(message, peer);
+		Boolean permission = areAllMessagesReturned(peer.size());
 
 		if (permission){
 			acquireLock();
@@ -168,7 +168,7 @@ public class MutualExclusion {
 
 				NodeInterface stub = Util.getProcessStub(procName, port);
 				message.setAcknowledged(true);
-				stub.onMutexRequestReceived(message);
+				stub.onMutexAcknowledgementReceived(message);
 				
 				break;
 			}
@@ -242,7 +242,7 @@ public class MutualExclusion {
 			try {
 				stub.releaseLocks();
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 
@@ -260,9 +260,9 @@ public class MutualExclusion {
 		if (queueack.size() == numvoters) {
 			queueack.clear();
 			return true;
+		} else {
+			return false;
 		}
-		
-		return false;
 	}
 	
 	private List<Message> removeDuplicatePeersBeforeVoting() {
