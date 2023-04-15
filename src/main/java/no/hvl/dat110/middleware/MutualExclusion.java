@@ -85,7 +85,7 @@ public class MutualExclusion {
 		WANTS_TO_ENTER_CS = true;
 		List<Message> ml = removeDuplicatePeersBeforeVoting();
 		multicastMessage(message, ml);
-		boolean permission = areAllMessagesReturned(ml.size());
+		Boolean permission = areAllMessagesReturned(ml.size());
 
 		if (permission){
 			acquireLock();
