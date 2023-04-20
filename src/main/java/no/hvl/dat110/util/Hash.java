@@ -66,11 +66,10 @@ public class Hash {
 		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance("MD5");
+			digestlen = md.getDigestLength();
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
-
-		digestlen = md.getDigestLength();
 
 		return digestlen*8;
 	}

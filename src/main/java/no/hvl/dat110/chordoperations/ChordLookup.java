@@ -48,7 +48,7 @@ public class ChordLookup {
 
 		BigInteger one = BigInteger.ONE;
 
-		if (Util.checkInterval(key, this.node.getNodeID().add(one), succnode.getNodeID().subtract(one))) {
+		if (Util.checkInterval(key, node.getNodeID().add(one), succnode.getNodeID().subtract(one))) {
 			return succnode;
 		} else {
 			NodeInterface predecessor = findHighestPredecessor(key);
@@ -76,14 +76,13 @@ public class ChordLookup {
 		
 		// if logic returns true, then return the finger (means finger is the closest to key)
 
-		List<NodeInterface> fingertable = this.node.getFingerTable();
+		List<NodeInterface> fingertable = node.getFingerTable();
 
 		for (int i = fingertable.size() - 1; i >= 0; i--) {
 			NodeInterface finger = fingertable.get(i);
 			NodeInterface fingerstub = Util.getProcessStub(finger.getNodeName(), finger.getPort());
 
-			assert fingerstub != null;
-			if (Util.checkInterval(fingerstub.getNodeID(), this.node.getNodeID().add(BigInteger.ONE), ID.subtract(BigInteger.ONE))){
+			if (Util.checkInterval(fingerstub.getNodeID(), node.getNodeID().add(BigInteger.ONE), ID.subtract(BigInteger.ONE))){
 				return fingerstub;
 			}
 		}

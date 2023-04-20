@@ -60,7 +60,7 @@ public class FileManager {
 	 	
 		// set a loop where size = numReplicas
 		for (int i = 0; i < numReplicas; i++) {
-			String replica = "" + filename +i;
+			String replica = filename + i;
 			hash = Hash.hashOf(replica);
 			replicafiles[i] = hash;
 		}
@@ -104,15 +104,14 @@ public class FileManager {
 
 		createReplicaFiles();
 
-		for (int i = 0; i < this.numReplicas; i++) {
-			BigInteger replica = this.replicafiles[i];
-			NodeInterface succnode = chordnode.findSuccessor(replica);
-			succnode.addKey(replica);
+		for (int i = 0; i < replicafiles.length; i++) {
+			NodeInterface succnode = chordnode.findSuccessor(replicafiles[i]);
+			succnode.addKey(replicafiles[i]);
 
 			if (counter == index) {
-				succnode.saveFileContent(filename, replica, bytesOfFile, true);
+				succnode.saveFileContent(filename, replicafiles[i], bytesOfFile, true);
 			} else {
-				succnode.saveFileContent(filename, replica, bytesOfFile, false);
+				succnode.saveFileContent(filename, replicafiles[i], bytesOfFile, false);
 			}
 			counter++;
 		}

@@ -54,7 +54,7 @@ public class Util {
 			upper = upper.add(mod);
 		}
 
-		if (lower.compareTo(id) <= 0 && id.compareTo(upper) <= 0) {
+		if (id.compareTo(lower) >= 0 && id.compareTo(upper) <= 0) {
 			interval = true;
 		}
 
